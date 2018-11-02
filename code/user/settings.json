@@ -1,1 +1,78 @@
-
+{
+  "workbench.iconTheme": "eq-material-theme-icons-light",
+  "workbench.colorTheme": "dark+(elixir)",
+  "editor.tabSize": 2,
+  "prettier.trailingComma": "all",
+  "prettier.semi": false,
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.fontFamily": "'Fira Code'",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.acceptSuggestionOnEnter": "on",
+  "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.otherModesKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"],
+      "after": ["d", "d"]
+    },
+    {
+      "before": ["<C-n>"],
+      "after": [],
+      "commands": [
+        {
+          "command": ":nohl"
+        }
+      ]
+    }
+  ],
+  "vim.leader": "<space>",
+  "window.zoomLevel": -2,
+  "emmet.includeLanguages": {
+    "HTML (Eex)": "html"
+  },
+  "editor.renderWhitespace": "boundary",
+  "[svelte]": {},
+  "files.associations": {
+    "*.html": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showSuggestionsAsSnippets": true,
+  "workbench.colorCustomizations": {
+    "activityBarBadge.background": "#AB47BC",
+    "list.activeSelectionForeground": "#AB47BC",
+    "list.inactiveSelectionForeground": "#AB47BC",
+    "list.highlightForeground": "#AB47BC",
+    "scrollbarSlider.activeBackground": "#AB47BC50",
+    "editorSuggestWidget.highlightForeground": "#AB47BC",
+    "textLink.foreground": "#AB47BC",
+    "progressBar.background": "#AB47BC",
+    "pickerGroup.foreground": "#AB47BC",
+    "tab.activeBorder": "#AB47BC",
+    "notificationLink.foreground": "#AB47BC",
+    "editorWidget.resizeBorder": "#AB47BC",
+    "editorWidget.border": "#AB47BC",
+    "settings.modifiedItemIndicator": "#AB47BC",
+    "settings.modifiedItemForeground": "#AB47BC",
+    "settings.headerForeground": "#AB47BC",
+    "panelTitle.activeBorder": "#AB47BC",
+    "breadcrumb.activeSelectionForeground": "#AB47BC",
+    "menu.selectionForeground": "#AB47BC",
+    "menubar.selectionForeground": "#AB47BC"
+  },
+  "materialTheme.accent": "Purple",
+  "explorer.decorations.badges": false,
+  "better-comments.highlightPlainText": true,
+  "emmet.showExpandedAbbreviation": "never"
+}
