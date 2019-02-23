@@ -323,12 +323,37 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;;Elixir
+  (defun mix-dialyzer ()
+    (interactive)
+    (save-buffer)
+    (alchemist-mix-execute (list "dialyzer") nil))
+  (evil-leader/set-key-for-mode 'elixir-mode
+    "md" 'mix-dialyzer)
+
+  ;; alchemist
+  (defun mix-credo ()
+    "Run credo on project"
+    (interactive)
+    (save-buffer)
+    (alchemist-mix-execute "credo"))
+  (evil-leader/set-key-for-mode 'elixir-mode
+    "mc" 'mix-credo)
+
+  (defun mix-format ()
+    "Run mix format on project"
+    (interactive)
+    (save-buffer)
+    (alchemist-mix-execute "format")
+    (evil-leader/set-key-for-mode `elixir-mode
+      "mf" 'mix-format)
+    )
+  
   ;; alchemist
   (defun mg/alchemist-run-credo-on-project ()
     "Run credo on project"
     (interactive)
     (alchemist-mix-execute "credo"))
-
 
   ;; use react-mode for .js files
   ;; has support for local eslint which is a problem with nvm
