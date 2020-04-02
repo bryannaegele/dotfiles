@@ -31,6 +31,8 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     csv
+     rust
      sql
      elixir
      ;; ----------------------------------------------------------------
@@ -54,7 +56,6 @@ values."
      markdown
      org
      osx
-     prettier-js
      shell
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -62,6 +63,7 @@ values."
      spell-checking
      syntax-checking
      version-control
+     themes-megapack
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -140,6 +142,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(ujelly
+                         zenburn
+                         tango
                          soft-morning)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -262,7 +266,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -322,13 +326,42 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq-default dotspacemacs-themes '(ujelly
+                                      zenburn
+                                      tango
+                                      soft-morning))
+  (load-theme 'ujelly t)
+
+  ;; projectile
+  (projectile-mode +1)
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+  ;;Elixir
+  (defun mix-dialyzer ()
+    (interactive)
+    (save-buffer)
+    (alchemist-mix-execute (list "dialyzer") nil))
+  (evil-leader/set-key-for-mode 'elixir-mode
+    "md" 'mix-dialyzer)
 
   ;; alchemist
-  (defun mg/alchemist-run-credo-on-project ()
+  (defun mix-credo ()
     "Run credo on project"
     (interactive)
+    (save-buffer)
     (alchemist-mix-execute "credo"))
+  (evil-leader/set-key-for-mode 'elixir-mode
+    "mc" 'mix-credo)
 
+  (defun mix-format ()
+    "Run mix format on project"
+    (interactive)
+    (save-buffer)
+    (alchemist-mix-execute "format")
+    (evil-leader/set-key-for-mode `elixir-mode
+      "mf" 'mix-format)
+    )
 
   ;; use react-mode for .js files
   ;; has support for local eslint which is a problem with nvm
@@ -338,7 +371,7 @@ you should place your code here."
    ;; js2-mode
    js2-basic-offset 2
    js-indent-level 2
-   
+
    ;; web-mode
    css-indent-offset 2
    web-mode-markup-indent-offset 2
@@ -348,7 +381,7 @@ you should place your code here."
 
 
   (require 'flycheck)
-  
+
   ;; turn on flychecking globally
   (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -374,17 +407,6 @@ you should place your code here."
               (append flycheck-disabled-checkers
                       '(json-jsonlist)))
 
-  (require 'prettier-js)
-  (setq prettier-target-mode "react-mode")
-  (setq prettier-args '(
-                        "--trailing-comma" "all"
-                        "--single-quote" "true"
-                        "--semi" "false"
-                        ))
-  (add-hook 'react-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook 'prettier-before-save)))
-
   ;; https://github.com/purcell/exec-path-from-shell
   ;; only need exec-path-from-shell on OSX
   ;; this hopefully sets up path and other vars better
@@ -396,7 +418,7 @@ you should place your code here."
   (setq ispell-list-command "--list")
 
   ;; prefs
-  (global-linum-mode t) ; Show line numbers by default
+  (global-linum-mode 'relative) ; Show line numbers by default
   (setq require-final-newline t) ; Adds newline to end of file on save if it isn't there
 
   (when (window-system)
@@ -439,13 +461,42 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
  '(evil-want-Y-yank-to-eol nil)
+ '(fci-rule-color "#383838" t)
+ '(nrepl-message-colors
+   (quote
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (org-category-capture gntp org-mime parent-mode gitignore-mode fringe-helper git-gutter+ git-gutter marshal logito ht pos-tip flx anzu goto-chg json-snatcher json-reformat web-completion-data dash-functional pkg-info epl popup s diminish winum unfill fuzzy flycheck-credo f json-mode log4e tablist async wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy flyspell-correct multiple-cursors rjsx-mode evil avy org docker-tramp packed elixir-mode auto-complete simple-httpd pcache alert haml-mode flycheck-elm flycheck-flow ujelly-theme elm-mode soft-morning-theme tern iedit markdown-mode sql-indent bind-key bind-map spinner hydra company smartparens highlight flycheck request projectile helm helm-core yasnippet skewer-mode js2-mode gh magit magit-popup git-commit with-editor dash powerline define-word yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-elixir neotree mwim multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode launchctl js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flyspell-correct-helm flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dockerfile-mode docker diff-hl company-web company-tern company-statistics column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (zen-and-art-theme white-sand-theme underwater-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme omtose-phellack-theme tangotango-theme lv transient zenburn-theme csv-mode toml-mode racer flycheck-rust cargo rust-mode undo-tree org-category-capture gntp org-mime parent-mode gitignore-mode fringe-helper git-gutter+ git-gutter marshal logito ht pos-tip flx anzu goto-chg json-snatcher json-reformat web-completion-data dash-functional pkg-info epl popup s diminish winum unfill fuzzy flycheck-credo f json-mode log4e tablist async wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy flyspell-correct multiple-cursors rjsx-mode evil avy org docker-tramp packed elixir-mode auto-complete simple-httpd pcache alert haml-mode flycheck-elm flycheck-flow ujelly-theme elm-mode soft-morning-theme tern iedit markdown-mode sql-indent bind-key bind-map spinner hydra company smartparens highlight flycheck request projectile helm helm-core yasnippet skewer-mode js2-mode gh magit magit-popup git-commit with-editor dash powerline define-word yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-mode rainbow-identifiers rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-elixir neotree mwim multi-term move-text mmm-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode launchctl js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gist gh-md flyspell-correct-helm flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-snipe evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dockerfile-mode docker diff-hl company-web company-tern company-statistics column-enforce-mode color-identifiers-mode coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((((class color) (min-colors 89)) (:foreground "#ffffff" :background "#000000")))))
+ )
