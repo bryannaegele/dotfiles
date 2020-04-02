@@ -345,6 +345,14 @@ you should place your code here."
   (evil-leader/set-key-for-mode 'elixir-mode
     "md" 'mix-dialyzer)
 
+  ;;Elixir
+  (defun mix-dialyzer ()
+    (interactive)
+    (save-buffer)
+    (alchemist-mix-execute (list "dialyzer") nil))
+  (evil-leader/set-key-for-mode 'elixir-mode
+    "md" 'mix-dialyzer)
+
   ;; alchemist
   (defun mix-credo ()
     "Run credo on project"
@@ -362,7 +370,7 @@ you should place your code here."
     (evil-leader/set-key-for-mode `elixir-mode
       "mf" 'mix-format)
     )
-
+  
   ;; use react-mode for .js files
   ;; has support for local eslint which is a problem with nvm
   (add-to-list 'auto-mode-alist '("\\.js\\'" . react-mode))
