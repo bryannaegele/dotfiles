@@ -69,7 +69,20 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(asdf, battery, docker, docker-compose, docker-machine, emacs, gitfast, kubectl, minikube, mix, rebar)
+plugins=(
+	asdf
+	battery
+	docker
+	docker-compose
+	docker-machine
+	emacs
+	gitfast
+	kubectl
+	minikube
+	mix
+	rebar
+	zsh_reload
+)
 
 source $ZSH/oh-my-zsh.sh
 
