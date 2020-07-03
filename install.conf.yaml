@@ -1,0 +1,21 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.spacemacs: emacs/.spacemacs
+    ~/.zshrc:
+      force: true
+      path: .zshrc
+    ~/.oh-my-zsh/custom/plugins:
+      force: true
+      path: zsh_custom/plugins
+
+- create:
+    - ~/dev
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
