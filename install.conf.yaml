@@ -7,6 +7,8 @@
 
 - link:
     ~/.spacemacs: emacs/.spacemacs
+    ~/xterm-24bit.terminfo: xterm-24bit.terminfo
+    ~/.zshenv: .zshenv
     ~/.zshrc:
       force: true
       path: .zshrc
@@ -19,3 +21,4 @@
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - tic -x -o ~/.terminfo ~/xterm-24bit.terminfo

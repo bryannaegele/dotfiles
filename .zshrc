@@ -88,9 +88,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export GPG_TTY=$(tty)
-export VIRTUAL_ENV_DISABLE_PROMPT=0
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
