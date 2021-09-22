@@ -6,6 +6,8 @@
 - clean: ['~']
 
 - link:
+    ~/.gitignore_global: .gitignore_global
+    ~/.gitconfig: .gitconfig
     ~/.spacemacs: emacs/.spacemacs
     ~/xterm-24bit.terminfo: xterm-24bit.terminfo
     ~/.zshenv: .zshenv

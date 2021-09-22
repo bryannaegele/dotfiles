@@ -1,0 +1,13 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Bryan Naegele
+	email = bryan@fourthtime.com
+[core]
+	editor = emacs
+	excludesfile = /Users/bryan/.gitignore_global
+[push]
+	default = current
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
