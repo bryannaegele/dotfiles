@@ -8,7 +8,7 @@
 - link:
     ~/.gitignore_global: .gitignore_global
     ~/.gitconfig: .gitconfig
-    ~/.spacemacs: emacs/.spacemacs
+    ~/.doom.d: emacs/.doom.d
     ~/xterm-24bit.terminfo: xterm-24bit.terminfo
     ~/.zshenv: .zshenv
     ~/.zshrc:
