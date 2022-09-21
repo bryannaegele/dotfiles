@@ -7,5 +7,3 @@ export TERM=xterm-24bit
 
 alias python="/opt/homebrew/bin/python3"
 alias python3="/opt/homebrew/bin/python3"
-
-source "$HOME/.cargo/env"

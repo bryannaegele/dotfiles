@@ -4,9 +4,10 @@
 	email = bryan@fourthtime.com
 [core]
 	editor = emacs
-	excludesfile = /Users/bryan/.gitignore_global
+	excludesfile = /Users/bryannaegele/.gitignore_global
 [push]
 	default = current
+	autoSetupRemote = true
 [pull]
 	rebase = true
 [init]

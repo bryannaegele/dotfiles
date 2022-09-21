@@ -35,6 +35,12 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
+(setq evil-motion-state-cursor 'box)  ; █
+(setq evil-visual-state-cursor 'box)  ; █
+(setq evil-normal-state-cursor 'box)  ; █
+(setq evil-insert-state-cursor 'bar)  ; ⎸
+(setq evil-emacs-state-cursor  'hbar) ; _
+
 (global-subword-mode 1)                           ; Iterate through CamelCase words
 (setq require-final-newline t) ; Adds newline to end of file on save if it isn't there
 
