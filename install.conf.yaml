@@ -14,13 +14,11 @@
     ~/.zshrc:
       force: true
       path: .zshrc
-    ~/.oh-my-zsh/custom/plugins:
-      force: true
-      path: zsh_custom/plugins
 
 - create:
     - ~/dev
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  - [git config --global core.excludesfile  ~/.gitignore_global]
   - tic -x -o ~/.terminfo ~/xterm-24bit.terminfo
