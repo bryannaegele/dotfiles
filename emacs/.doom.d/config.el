@@ -35,9 +35,9 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-(setq evil-motion-state-cursor 'box)  ; █
-(setq evil-visual-state-cursor 'box)  ; █
-(setq evil-normal-state-cursor 'box)  ; █
+(setq evil-motion-state-cursor '(box "light blue")  ; █
+(setq evil-visual-state-cursor 'box  ; █
+(setq evil-normal-state-cursor '(box "light blue")  ; █
 (setq evil-insert-state-cursor 'bar)  ; ⎸
 (setq evil-emacs-state-cursor  'hbar) ; _
 
@@ -69,3 +69,9 @@
 ;;  (elixir-mode . lsp)
 ;;  :init
 ;;  (add-to-list 'exec-path "~/dev/elixir-ls-1.12"))
+(after! lsp-mode
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("nextls" "--stdio"))
+                    :multi-root t
+                    :activation-fn (lsp-activate-on "elixir")
+                    :server-id 'next-ls)))

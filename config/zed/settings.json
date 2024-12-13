@@ -1,0 +1,44 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "theme": "Ayu Mirage",
+  "vim_mode": true,
+  "ui_font_size": 12,
+  "buffer_font_size": 12,
+  "tab_size": 2,
+  "preferred_line_length": 98,
+  "soft_wrap": "none",
+  "buffer_font_family": "Zed Mono",
+  "projects_online_by_default": true,
+  "format_on_save": "on",
+  "terminal": {
+    "font_family": "Fira Code",
+    "blinking": "off"
+  },
+  "languages": {
+    "Elixir": {
+      "language_servers": ["next-ls"]
+    }
+  },
+  "lsp": {
+    // how you configure Next LS, notice the kebab casing
+    "next-ls": {
+      "initialization_options": {
+        "extensions": {
+          // example configuring the extensions
+          "credo": { "enable": true }
+        },
+        "experimental": {
+          // example configuring the experimental options
+          "completions": { "enable": true }
+        }
+      }
+    }
+  }
+}

@@ -1,21 +1,28 @@
 # This is Git's per-user configuration file.
 [user]
-	name = Bryan Naegele
-	email = bryan@fourthtime.com
+    name = Bryan Naegele
+    email = bryan@fourthtime.com
+
+[includeIf "gitdir:~/dk-dev/"]
+    path = ~/dk-dev/.gitconfig
+
+[includeIf "gitdir:~/sb-dev"]
+    path = ~/sb-dev/.gitconfig
+
 [core]
-	editor = emacs
-	excludesfile = /Users/bryan/.gitignore_global
+    editor = code -n -w
+    excludesfile = $HOME/.gitignore_global
 [push]
-	default = current
-	autoSetupRemote = true
+    default = current
+    autoSetupRemote = true
 [pull]
-	rebase = true
+    rebase = true
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [commit]
-	gpgsign = true
+    gpgsign = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

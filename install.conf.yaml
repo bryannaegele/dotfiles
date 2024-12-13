@@ -8,7 +8,19 @@
 - link:
     ~/.gitignore_global: .gitignore_global
     ~/.gitconfig: .gitconfig
+    ~/.gitconfig-dk:
+      path: ~/dk-dev/.gitconfig
+      if: '[ `id -un` = b.naegele ]'
+    ~/.gitconfig-sb:
+      path: ~/sb-dev/.gitconfig
+      if: '[ `id -un` = bryannaegele ]'
     ~/.doom.d: emacs/.doom.d
+    ~/.config/zed/settings.json:
+      path: config/zed/settings.json
+      relink: true
+    ~/com.googlecode.iterm2.plist:
+      path: iterm2-prefs
+      relink: true
     ~/xterm-24bit.terminfo: xterm-24bit.terminfo
     ~/.zshenv: .zshenv
     ~/.zshrc:
@@ -19,6 +31,6 @@
     - ~/dev
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
-  - [git config --global core.excludesfile  ~/.gitignore_global]
-  - tic -x -o ~/.terminfo ~/xterm-24bit.terminfo
+    - [git submodule update --init --recursive, Installing submodules]
+    - [git config --global core.excludesfile  ~/.gitignore_global]
+    - tic -x -o ~/.terminfo ~/xterm-24bit.terminfo
