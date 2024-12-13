@@ -3,12 +3,6 @@
     name = Bryan Naegele
     email = bryan@fourthtime.com
 
-[includeIf "gitdir:~/dk-dev/"]
-    path = ~/dk-dev/.gitconfig
-
-[includeIf "gitdir:~/sb-dev"]
-    path = ~/sb-dev/.gitconfig
-
 [core]
     editor = code -n -w
     excludesfile = $HOME/.gitignore_global
@@ -26,3 +20,9 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
+
+[includeIf "gitdir:~/dk-dev/"]
+    path = ~/dk-dev/.gitconfig
+
+[includeIf "gitdir:~/sb-dev"]
+    path = ~/sb-dev/.gitconfig
