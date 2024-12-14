@@ -2,6 +2,7 @@
 [user]
     name = Bryan Naegele
     email = bryan@fourthtime.com
+    signingkey = 400D674FD6F2F09A
 
 [core]
     editor = code -n -w
